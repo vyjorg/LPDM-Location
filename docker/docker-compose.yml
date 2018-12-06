@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  ms-location:
+    image: postgres:alpine
+    ports:
+    - '28187:5432'
+    container_name: LPDM-LocationDB
+    environment:
+      POSTGRES_DB: db_location
+      POSTGRES_USER: usr_location
+      POSTGRES_PASSWORD: location
+    volumes:
+    - './sql:/docker-entrypoint-initdb.d'
+    restart: always
+    network_mode: bridge

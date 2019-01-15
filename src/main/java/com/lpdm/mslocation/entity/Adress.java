@@ -1,10 +1,12 @@
 package com.lpdm.mslocation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="adress",schema = "public")
-public class Adresse {
+public class Adress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +22,11 @@ public class Adresse {
     private String complement;
 
     @Column
+    @JsonIgnore
     private Integer cityId;
+
+    @Transient
+    private City city;
 
     public Integer getId() {
         return id;
@@ -60,5 +66,13 @@ public class Adresse {
 
     public void setCityId(Integer cityId) {
         this.cityId = cityId;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 }

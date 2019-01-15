@@ -1,5 +1,7 @@
 package com.lpdm.mslocation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class City {
     private Integer id;
 
     @Column(name = "department_code")
+    @JsonIgnore
     private String departmentCode;
 
     @Column(name = "insee_code")
@@ -30,6 +33,9 @@ public class City {
 
     @Column(name = "gps_lng")
     private double longitude;
+
+    @Transient
+    private Department department;
 
     public Integer getId() {
         return id;
@@ -93,5 +99,13 @@ public class City {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

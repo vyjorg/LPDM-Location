@@ -1,5 +1,7 @@
 package com.lpdm.mslocation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Department {
     private Integer id;
 
     @Column(name = "region_code")
+    @JsonIgnore
     private String regionCode;
 
     @Column
@@ -21,6 +24,9 @@ public class Department {
 
     @Column
     private String slug;
+
+    @Transient
+    private Region region;
 
     public Integer getId() {
         return id;
@@ -60,5 +66,13 @@ public class Department {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

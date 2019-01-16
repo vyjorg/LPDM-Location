@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: ms-location
+  cloud:
+    config:
+      allow-override: true
+      uri: https://config.lpdm.kybox.fr
+  main:
+    allow-bean-definition-overriding: true

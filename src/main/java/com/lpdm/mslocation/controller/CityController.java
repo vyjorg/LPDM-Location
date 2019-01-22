@@ -42,7 +42,7 @@ public class CityController {
     }
 
     @GetMapping(value = "/cities/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<City> listCitiesByZipCode(@PathVariable String zipCode){
+    public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
         List<City> list = cityDao.findByZipCode(zipCode);
 

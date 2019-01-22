@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class CityController {
     }
 
     @GetMapping(value = "/cities/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<City> listCitiesByZipCode(String zipCode){
+    public List<City> listCitiesByZipCode(@PathVariable String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
         List<City> list = cityDao.findByZipCode(zipCode);
 

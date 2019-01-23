@@ -52,7 +52,7 @@ CREATE TABLE public.adress (
                 id INTEGER NOT NULL DEFAULT nextval('public.adress_id_seq'),
                 street_name VARCHAR NOT NULL,
                 street_number INTEGER NOT NULL,
-                complement VARCHAR NOT NULL,
+                complement VARCHAR,
                 city_id INTEGER NOT NULL,
                 CONSTRAINT adress_pk PRIMARY KEY (id)
 );

@@ -44,6 +44,7 @@ public class CityController {
     @GetMapping(value = "/cities/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
+        log.info("CityController -> méthode listCitiesByZipCode : zipcode envoyé = "+zipCode);
         List<City> list = cityDao.findByZipCode(zipCode);
 
         for(City city :list){
@@ -53,5 +54,33 @@ public class CityController {
 
         log.info("CityController -> méthode listCitiesByZipCode : sortie ");
         return list;
+    }
+
+    @GetMapping(value = "/cities/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<City> listCitiesByName(@PathVariable String name){
+        log.info("CityController -> méthode listCitiesByName : entrée ");
+        log.info("CityController -> méthode listCitiesByName : name envoyé = "+name);
+        List<City> list = cityDao.findAllByNameContainingIgnoreCase(name);
+
+        for(City city :list){
+            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
+        }
+
+        log.info("CityController -> méthode listCitiesByName : sortie ");
+        return list;
+    }
+
+    @GetMapping(value = "/cities/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public City cityById(@PathVariable int id){
+        log.info("CityController -> méthode cityById : entrée ");
+        log.info("CityController -> méthode cityById : id envoyé = "+id);
+
+        City city = cityDao.findById(id);
+        city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+        city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
+
+        log.info("CityController -> méthode cityById : sortie ");
+        return city;
     }
 }

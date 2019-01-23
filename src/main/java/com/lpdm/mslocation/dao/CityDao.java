@@ -11,5 +11,6 @@ public interface CityDao extends JpaRepository<City, Integer> {
 
     City findById(int id);
     List<City> findByZipCode(String zipCode);
+    List<City> findAllByNameContainingIgnoreCase(String name);
 
 }

@@ -4,7 +4,7 @@ import com.lpdm.mslocation.dao.CityDao;
 import com.lpdm.mslocation.dao.DepartmentDao;
 import com.lpdm.mslocation.dao.RegionDao;
 import com.lpdm.mslocation.entity.City;
-import com.lpdm.mslocation.exception.AdressNotFound;
+import com.lpdm.mslocation.exception.AddressNotFound;
 import com.lpdm.mslocation.exception.CityNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -97,7 +97,7 @@ public class CityController {
 
         if(city == null){
             log.warn("CityController -> méthode cityById : ville null");
-            throw new AdressNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
+            throw new AddressNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
         }
 
         city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));

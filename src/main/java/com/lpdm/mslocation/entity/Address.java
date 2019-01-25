@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 @Entity
-@Table(name="adress",schema = "public")
-public class Adress {
+@Table(name="address",schema = "public")
+public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

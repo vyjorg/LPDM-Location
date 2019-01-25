@@ -39,14 +39,15 @@ public class AddressController {
     }
 
     @PostMapping(value = "/address", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void addAddress(@RequestBody Address address){
+    public Address addAddress(@RequestBody Address address){
         log.info("AddressController -> méthode addAdress : entrée ");
         log.info("AddressController -> méthode addAdress : address envoyé = "+address.toString());
 
         address.setCityId(address.getCity().getId());
-        addressDao.save(address);
+        Address addressAdded = addressDao.save(address);
 
         log.info("AddressController -> méthode addAdress : sortie ");
+        return addressAdded;
     }
 
     @DeleteMapping(value="/address/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

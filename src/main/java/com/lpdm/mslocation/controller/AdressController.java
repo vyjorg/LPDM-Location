@@ -2,6 +2,7 @@ package com.lpdm.mslocation.controller;
 
 import com.lpdm.mslocation.dao.AdressDao;
 import com.lpdm.mslocation.entity.Adress;
+import com.lpdm.mslocation.exception.AdressNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class AdressController {
 
         Adress adress = adressDao.findById(id);
         adress.setCity(cityController.cityById(adress.getCityId()));
+
+        if(adress == null){
+            log.warn("AdressController -> méthode findAdressById : adress null ");
+            throw new AdressNotFound("Aucune adresse trouvé pour l'id = "+id);
+        }
 
         log.info("AdressController -> méthode findAdressById : sortie ");
         return adress;

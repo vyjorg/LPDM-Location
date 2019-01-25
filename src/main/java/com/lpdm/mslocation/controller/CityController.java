@@ -4,6 +4,8 @@ import com.lpdm.mslocation.dao.CityDao;
 import com.lpdm.mslocation.dao.DepartmentDao;
 import com.lpdm.mslocation.dao.RegionDao;
 import com.lpdm.mslocation.entity.City;
+import com.lpdm.mslocation.exception.AdressNotFound;
+import com.lpdm.mslocation.exception.CityNotFound;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,11 @@ public class CityController {
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
+        if(list == null){
+            log.warn("CityController -> méthode listCities : list null");
+            throw new CityNotFound("Aucune ville trouvé dans la bdd ");
+        }
+
         log.info("CityController -> méthode listCities : sortie ");
         return list;
     }
@@ -50,6 +57,11 @@ public class CityController {
         for(City city :list){
             city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
+        }
+
+        if(list == null){
+            log.warn("CityController -> méthode listCitiesByZipCode : list null");
+            throw new CityNotFound("Aucune ville trouvé dans la bdd avec le zipcode = "+zipCode);
         }
 
         log.info("CityController -> méthode listCitiesByZipCode : sortie ");
@@ -67,6 +79,11 @@ public class CityController {
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
+        if(list == null){
+            log.warn("CityController -> méthode listCitiesByName : list null");
+            throw new CityNotFound("Aucune ville trouvé dans la bdd avec le nom = "+name);
+        }
+
         log.info("CityController -> méthode listCitiesByName : sortie ");
         return list;
     }
@@ -79,6 +96,11 @@ public class CityController {
         City city = cityDao.findById(id);
         city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
         city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
+
+        if(city == null){
+            log.warn("CityController -> méthode cityById : ville null");
+            throw new AdressNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
+        }
 
         log.info("CityController -> méthode cityById : sortie ");
         return city;

@@ -16,7 +16,7 @@ public class Address {
     private String streetName;
 
     @Column(name = "street_number")
-    private Integer streetNumber;
+    private String streetNumber;
 
     @Column
     private String complement;
@@ -44,11 +44,11 @@ public class Address {
         this.streetName = streetName;
     }
 
-    public Integer getStreetNumber() {
+    public String getStreetNumber() {
         return streetNumber;
     }
 
-    public void setStreetNumber(Integer streetNumber) {
+    public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
     }
 
@@ -74,5 +74,17 @@ public class Address {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "id=" + id +
+                ", streetName='" + streetName + '\'' +
+                ", streetNumber='" + streetNumber + '\'' +
+                ", complement='" + complement + '\'' +
+                ", cityId=" + cityId +
+                ", city=" + city +
+                '}';
     }
 }

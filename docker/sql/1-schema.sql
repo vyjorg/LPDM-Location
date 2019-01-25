@@ -46,21 +46,21 @@ CREATE TABLE public.city (
 
 ALTER SEQUENCE public.city_id_seq OWNED BY public.city.id;
 
-CREATE SEQUENCE public.adress_id_seq;
+CREATE SEQUENCE public.address_id_seq;
 
-CREATE TABLE public.adress (
-                id INTEGER NOT NULL DEFAULT nextval('public.adress_id_seq'),
+CREATE TABLE public.address (
+                id INTEGER NOT NULL DEFAULT nextval('public.address_id_seq'),
                 street_name VARCHAR NOT NULL,
-                street_number INTEGER NOT NULL,
+                street_number VARCHAR NOT NULL,
                 complement VARCHAR,
                 city_id INTEGER NOT NULL,
-                CONSTRAINT adress_pk PRIMARY KEY (id)
+                CONSTRAINT address_pk PRIMARY KEY (id)
 );
 
 
-ALTER SEQUENCE public.adress_id_seq OWNED BY public.adress.id;
+ALTER SEQUENCE public.address_id_seq OWNED BY public.address.id;
 
-ALTER TABLE public.adress ADD CONSTRAINT city_adress_fk
+ALTER TABLE public.address ADD CONSTRAINT city_address_fk
 FOREIGN KEY (city_id)
 REFERENCES public.city (id)
 ON DELETE NO ACTION

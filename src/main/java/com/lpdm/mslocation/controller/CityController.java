@@ -48,7 +48,7 @@ public class CityController {
         return list;
     }
 
-    @GetMapping(value = "/cities/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/cities/zipcode/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
         log.info("CityController -> méthode listCitiesByZipCode : zipcode envoyé = "+zipCode);
@@ -68,7 +68,7 @@ public class CityController {
         return list;
     }
 
-    @GetMapping(value = "/cities/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "/cities/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByName(@PathVariable String name){
         log.info("CityController -> méthode listCitiesByName : entrée ");
         log.info("CityController -> méthode listCitiesByName : name envoyé = "+name);

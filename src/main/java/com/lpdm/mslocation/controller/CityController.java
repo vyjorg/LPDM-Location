@@ -34,14 +34,14 @@ public class CityController {
         log.info("CityController -> méthode listCities : entrée ");
         List<City> list = cityDao.findAll();
 
-        for(City city :list){
-            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
-            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
-        }
-
         if(list == null){
             log.warn("CityController -> méthode listCities : list null");
             throw new CityNotFound("Aucune ville trouvé dans la bdd ");
+        }
+
+        for(City city :list){
+            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
         log.info("CityController -> méthode listCities : sortie ");
@@ -54,14 +54,14 @@ public class CityController {
         log.info("CityController -> méthode listCitiesByZipCode : zipcode envoyé = "+zipCode);
         List<City> list = cityDao.findByZipCode(zipCode);
 
-        for(City city :list){
-            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
-            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
-        }
-
         if(list == null){
             log.warn("CityController -> méthode listCitiesByZipCode : list null");
             throw new CityNotFound("Aucune ville trouvé dans la bdd avec le zipcode = "+zipCode);
+        }
+
+        for(City city :list){
+            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
         log.info("CityController -> méthode listCitiesByZipCode : sortie ");
@@ -74,14 +74,14 @@ public class CityController {
         log.info("CityController -> méthode listCitiesByName : name envoyé = "+name);
         List<City> list = cityDao.findAllByNameContainingIgnoreCase(name);
 
-        for(City city :list){
-            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
-            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
-        }
-
         if(list == null){
             log.warn("CityController -> méthode listCitiesByName : list null");
             throw new CityNotFound("Aucune ville trouvé dans la bdd avec le nom = "+name);
+        }
+
+        for(City city :list){
+            city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+            city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
         log.info("CityController -> méthode listCitiesByName : sortie ");
@@ -94,13 +94,14 @@ public class CityController {
         log.info("CityController -> méthode cityById : id envoyé = "+id);
 
         City city = cityDao.findById(id);
-        city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
-        city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
 
         if(city == null){
             log.warn("CityController -> méthode cityById : ville null");
             throw new AdressNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
         }
+
+        city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
+        city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
 
         log.info("CityController -> méthode cityById : sortie ");
         return city;

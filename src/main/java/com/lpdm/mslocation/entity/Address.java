@@ -3,6 +3,7 @@ package com.lpdm.mslocation.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="address",schema = "public")
@@ -13,9 +14,11 @@ public class Address {
     private Integer id;
 
     @Column(name = "street_name")
+    @NotNull(message = "le nom de rue ne peut être null")
     private String streetName;
 
     @Column(name = "street_number")
+    @NotNull(message = "le numéro de rue ne peut être null")
     private String streetNumber;
 
     @Column
@@ -26,6 +29,7 @@ public class Address {
     private Integer cityId;
 
     @Transient
+    @NotNull(message = "la ville ne peut être null")
     private City city;
 
     public Integer getId() {

@@ -4,8 +4,9 @@ import com.lpdm.mslocation.dao.CityDao;
 import com.lpdm.mslocation.dao.DepartmentDao;
 import com.lpdm.mslocation.dao.RegionDao;
 import com.lpdm.mslocation.entity.City;
-import com.lpdm.mslocation.exception.AddressNotFound;
 import com.lpdm.mslocation.exception.CityNotFound;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import java.util.List;
  * @since 01/01/2019
  */
 
+@Api(description="Controller pour les opérations CRUD sur les villes.")
 @RestController
 public class CityController {
     private Logger log = LogManager.getLogger(this.getClass());
@@ -39,6 +41,7 @@ public class CityController {
      * Call this method to get an {@link List<City>}
      * @return An {@link List<City>} json object
      */
+    @ApiOperation(value = "Récupère toutes les villes de la bdd")
     @GetMapping(value = "/cities", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCities(){
         log.info("CityController -> méthode listCities : entrée ");
@@ -63,6 +66,7 @@ public class CityController {
      * @param zipCode The {@link City} {@link String} zipCode
      * @return an {@link List<City>} json object
      */
+    @ApiOperation(value = "Récupère les villes grâce à leurs code postale")
     @GetMapping(value = "/cities/zipcode/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
@@ -88,6 +92,7 @@ public class CityController {
      * @param name The {@link City} {@link String} name
      * @return an {@link List<City>} json object
      */
+    @ApiOperation(value = "Récupère les villes grâce à leurs nom")
     @GetMapping(value = "/cities/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByName(@PathVariable String name){
         log.info("CityController -> méthode listCitiesByName : entrée ");
@@ -113,6 +118,7 @@ public class CityController {
      * @param id The {@link City} {@link Integer} id
      * @return an {@link City} json object
      */
+    @ApiOperation(value = "Récupère une ville grâce à son ID si celui-ci existe dans la bdd")
     @GetMapping(value = "/cities/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public City cityById(@PathVariable int id){
         log.info("CityController -> méthode cityById : entrée ");
@@ -122,7 +128,7 @@ public class CityController {
 
         if(city == null){
             log.warn("CityController -> méthode cityById : ville null");
-            throw new AddressNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
+            throw new CityNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
         }
 
         city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));

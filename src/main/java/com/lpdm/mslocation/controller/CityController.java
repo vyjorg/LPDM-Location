@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author Vianney
+ * @version 1.0
+ * @since 01/01/2019
+ */
+
 @RestController
 public class CityController {
     private Logger log = LogManager.getLogger(this.getClass());
@@ -29,6 +35,10 @@ public class CityController {
     @Autowired
     private RegionDao regionDao;
 
+    /**
+     * Call this method to get an {@link List<City>}
+     * @return An {@link List<City>} json object
+     */
     @GetMapping(value = "/cities", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCities(){
         log.info("CityController -> méthode listCities : entrée ");
@@ -48,6 +58,11 @@ public class CityController {
         return list;
     }
 
+    /**
+     * Find {@link List<City>} by the City {@link String} zipcode
+     * @param zipCode The {@link City} {@link String} zipCode
+     * @return an {@link List<City>} json object
+     */
     @GetMapping(value = "/cities/zipcode/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
         log.info("CityController -> méthode listCitiesByZipCode : entrée ");
@@ -68,6 +83,11 @@ public class CityController {
         return list;
     }
 
+    /**
+     * Find {@link List<City>} by the City {@link String} name
+     * @param name The {@link City} {@link String} name
+     * @return an {@link List<City>} json object
+     */
     @GetMapping(value = "/cities/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByName(@PathVariable String name){
         log.info("CityController -> méthode listCitiesByName : entrée ");
@@ -88,6 +108,11 @@ public class CityController {
         return list;
     }
 
+    /**
+     * Find {@link City} by the city {@link Integer} id
+     * @param id The {@link City} {@link Integer} id
+     * @return an {@link City} json object
+     */
     @GetMapping(value = "/cities/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public City cityById(@PathVariable int id){
         log.info("CityController -> méthode cityById : entrée ");

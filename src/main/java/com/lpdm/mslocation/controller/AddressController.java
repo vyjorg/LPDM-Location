@@ -9,6 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * @author Vianney
+ * @version 1.0
+ * @since 01/01/2019
+ */
+
 @RestController
 public class AddressController {
     private Logger log = LogManager.getLogger(this.getClass());
@@ -19,6 +25,11 @@ public class AddressController {
     @Autowired
     private CityController cityController;
 
+    /**
+     * Find {@link Address} by the address {@link Integer} id
+     * @param id The {@link Address} {@link Integer} id
+     * @return an {@link Address} json object
+     */
     @GetMapping(value = "/address/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Address findAddressById(@PathVariable int id){
         log.info("AddressController -> méthode findAddressById : entrée ");
@@ -31,13 +42,15 @@ public class AddressController {
         }
 
         address.setCity(cityController.cityById(address.getCityId()));
-
-
-
         log.info("AdressController -> méthode findAdressById : sortie ");
         return address;
     }
 
+    /**
+     * Add {@link Address} in database
+     * @param address {@link Address}
+     * @return an {@link Address} added json object
+     */
     @PostMapping(value = "/address", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public Address addAddress(@RequestBody Address address){
         log.info("AddressController -> méthode addAdress : entrée ");
@@ -50,6 +63,10 @@ public class AddressController {
         return addressAdded;
     }
 
+    /**
+     * Delete {@link Address} by the address {@link Integer} id
+     * @param id The {@link Address} {@link Integer} id
+     */
     @DeleteMapping(value="/address/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void deleteAddress(@PathVariable int id){
         log.info("AddressController -> méthode deleteAddress : entrée ");
@@ -60,6 +77,10 @@ public class AddressController {
         log.info("AddressController -> méthode deleteAddress : entrée ");
     }
 
+    /**
+     * Update {@link Address} in database
+     * @param adress {@link Address }
+     */
     @PutMapping(value="/address", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void updateAdress(@RequestBody Address adress){
         log.info("AddressController -> méthode updateAddress : entrée ");

@@ -88,16 +88,18 @@ public class AddressController {
     /**
      * Update {@link Address} in database
      * @param adress {@link Address }
+     * @return {@link Address}
      */
     @ApiOperation(value = "Met à jour une adresse si celle-ci est conforme")
     @PutMapping(value="/address", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public void updateAdress(@RequestBody Address adress){
+    public Address updateAdress(@RequestBody Address adress){
         log.info("AddressController -> méthode updateAddress : entrée ");
         log.info("AddressController -> méthode updateAddress : adress envoyé = "+adress.toString());
 
         adress.setCityId(adress.getCity().getId());
-        addressDao.save(adress);
+        Address updateAddress = addressDao.save(adress);
 
-        log.info("AddressController -> méthode updateAddress : entrée ");
+        log.info("AddressController -> méthode updateAddress : sortie ");
+        return updateAddress;
     }
 }

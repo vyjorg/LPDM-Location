@@ -44,11 +44,11 @@ public class CityController {
     @ApiOperation(value = "Récupère toutes les villes de la bdd")
     @GetMapping(value = "/cities", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCities(){
-        log.info("CityController -> méthode listCities : entrée ");
+        
         List<City> list = cityDao.findAll();
 
         if(list == null){
-            log.warn("CityController -> méthode listCities : list null");
+            
             throw new CityNotFound("Aucune ville trouvé dans la bdd ");
         }
 
@@ -57,7 +57,6 @@ public class CityController {
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
-        log.info("CityController -> méthode listCities : sortie ");
         return list;
     }
 
@@ -69,12 +68,11 @@ public class CityController {
     @ApiOperation(value = "Récupère les villes grâce à leurs code postale")
     @GetMapping(value = "/cities/zipcode/{zipcode}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByZipCode(@PathVariable("zipcode") String zipCode){
-        log.info("CityController -> méthode listCitiesByZipCode : entrée ");
-        log.info("CityController -> méthode listCitiesByZipCode : zipcode envoyé = "+zipCode);
+
         List<City> list = cityDao.findByZipCode(zipCode);
 
         if(list == null){
-            log.warn("CityController -> méthode listCitiesByZipCode : list null");
+
             throw new CityNotFound("Aucune ville trouvé dans la bdd avec le zipcode = "+zipCode);
         }
 
@@ -83,7 +81,7 @@ public class CityController {
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
-        log.info("CityController -> méthode listCitiesByZipCode : sortie ");
+
         return list;
     }
 
@@ -95,12 +93,11 @@ public class CityController {
     @ApiOperation(value = "Récupère les villes grâce à leurs nom")
     @GetMapping(value = "/cities/name/{name}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public List<City> listCitiesByName(@PathVariable String name){
-        log.info("CityController -> méthode listCitiesByName : entrée ");
-        log.info("CityController -> méthode listCitiesByName : name envoyé = "+name);
+
         List<City> list = cityDao.findAllByNameContainingIgnoreCase(name);
 
         if(list == null){
-            log.warn("CityController -> méthode listCitiesByName : list null");
+
             throw new CityNotFound("Aucune ville trouvé dans la bdd avec le nom = "+name);
         }
 
@@ -109,7 +106,6 @@ public class CityController {
             city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
         }
 
-        log.info("CityController -> méthode listCitiesByName : sortie ");
         return list;
     }
 
@@ -121,20 +117,18 @@ public class CityController {
     @ApiOperation(value = "Récupère une ville grâce à son ID si celui-ci existe dans la bdd")
     @GetMapping(value = "/cities/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public City cityById(@PathVariable int id){
-        log.info("CityController -> méthode cityById : entrée ");
-        log.info("CityController -> méthode cityById : id envoyé = "+id);
+
 
         City city = cityDao.findById(id);
 
         if(city == null){
-            log.warn("CityController -> méthode cityById : ville null");
+
             throw new CityNotFound("Aucune ville trouvé dans la bdd avec l'id = "+id);
         }
 
         city.setDepartment(departmentDao.findByCode(city.getDepartmentCode()));
         city.getDepartment().setRegion(regionDao.findByCode(city.getDepartment().getRegionCode()));
 
-        log.info("CityController -> méthode cityById : sortie ");
         return city;
     }
 }
